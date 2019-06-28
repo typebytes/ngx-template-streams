@@ -5,6 +5,7 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "strictBindCallApply": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -18,6 +19,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-template-streams": [
+        "projects/ngx-template-streams/src/public_api.ts"
+      ],
+      "ngx-template-streams/*": [
+        "projects/ngx-template-streams/src/*"
+      ]
+    }
   }
 }
