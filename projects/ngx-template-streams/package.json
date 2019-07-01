@@ -1,8 +1,17 @@
 {
   "name": "ngx-template-streams",
   "version": "0.0.1",
+  "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "dependencies": {
+    "@phenomnomnominal/tsquery": "^3.0.0",
+    "fp-ts": "^1.19.2"
+  },
   "peerDependencies": {
-    "@angular/common": "^8.0.1",
-    "@angular/core": "^8.0.1"
+    "@angular/common": "^8.0.3",
+    "@angular/core": "^8.0.3",
+    "@ngtools/webpack": "^8.0.6",
+    "rxjs": ">= 6.0.0",
+    "typescript": "^3.0.0"
   }
 }

@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'jest-preset-angular',
   rootDir: 'projects/ngx-template-streams',
-  roots: ['src'],
+  roots: ['src', 'schematics'],
   setupFilesAfterEnv: ['<rootDir>/test.ts'],
   globals: {
     'ts-jest': {

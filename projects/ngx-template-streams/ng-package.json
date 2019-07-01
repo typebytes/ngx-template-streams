@@ -3,5 +3,6 @@
   "dest": "../../dist/ngx-template-streams",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["tslib", "fp-ts", "@phenomnomnominal/tsquery"]
 }

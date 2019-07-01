@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Adds ngx-template-streams to the application and installs necessary dependencies",
+      "factory": "./src/ng-add/index",
+      "schema": "./src/ng-add/schema.json",
+      "aliases": ["init"]
+    },
+    "ng-add-setup": {
+      "description": "Sets up the specified project after the ng-add dependencies have been installed.",
+      "private": true,
+      "factory": "./src/ng-add/setup",
+      "schema": "./src/ng-add/schema.json"
+    }
+  }
+}

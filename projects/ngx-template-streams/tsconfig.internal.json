@@ -1,7 +1,11 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "declaration": true
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "skipLibCheck": true,
+    "outDir": "../../dist/ngx-template-streams"
   },
   "include": ["src/internal"]
 }
