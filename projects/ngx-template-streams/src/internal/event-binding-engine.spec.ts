@@ -79,4 +79,18 @@ describe('Event Binding Engine', () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('should correctly escape dollar signs as part of the event payload', () => {
+    const source = createInlineTemplate`
+      <button (*click)="stream$; $event = 'test$'">Click Me</button>
+    `;
+
+    const expected = createInlineTemplate`
+      <button (click)="__stream$.next('test$')">Click Me</button>
+    `;
+
+    const result = updateEventBindings(source, true);
+
+    expect(result).toEqual(expected);
+  });
 });

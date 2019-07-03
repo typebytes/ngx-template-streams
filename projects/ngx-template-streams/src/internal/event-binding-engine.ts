@@ -1,5 +1,5 @@
 import { some } from 'fp-ts/lib/Option';
-import { escapeQuotes } from '../utils/template-helpers';
+import { escapeQuotes, escapeEventPayload } from '../utils/template-helpers';
 import { INTERNAL_PREFIX } from './constants';
 import { parseEventBindings } from './event-binding-parser';
 
@@ -35,7 +35,7 @@ function executeOperations(template: string) {
 }
 
 function createEventBinding(event: string, streamName: string, eventPayload = '$event', isInlineTemplate: boolean) {
-  const eventBinding = `(${event})="${INTERNAL_PREFIX}${streamName}.next(${eventPayload})"`;
+  const eventBinding = `(${event})="${INTERNAL_PREFIX}${streamName}.next(${escapeEventPayload(eventPayload)})"`;
   return isInlineTemplate ? eventBinding : escapeQuotes(eventBinding);
 }
 

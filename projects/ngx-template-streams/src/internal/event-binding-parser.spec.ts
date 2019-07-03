@@ -117,26 +117,29 @@ describe('Event Binding Parser', () => {
     expect(result.isNone()).toBeFalsy();
   });
 
-  test.each(['1', 'variables', `\'single quote strings are allowed\'`, '{ foo: 1, bar = { foobar: 2 } }'])(
-    'should allow for different payloads › %s',
-    payload => {
-      const input = createTemplate`
+  test.each([
+    '1',
+    'variables',
+    `\'single quote strings are allowed\'`,
+    '{ foo: 1, bar = { foobar: 2 } }',
+    'string with escape character $'
+  ])('should allow for different payloads › %s', payload => {
+    const input = createTemplate`
         <button (*click)="stream$; $event = ${payload}">Back</button>
       `;
 
-      const expected = [
-        {
-          event: 'click',
-          stream: 'stream$',
-          payload
-        }
-      ];
+    const expected = [
+      {
+        event: 'click',
+        stream: 'stream$',
+        payload
+      }
+    ];
 
-      const result = parseEventBindings(input);
+    const result = parseEventBindings(input);
 
-      expect(getParserResultGroups(result)).toEqual(expected);
-    }
-  );
+    expect(getParserResultGroups(result)).toEqual(expected);
+  });
 
   test.each([';', '; $event', '; $ev ent', '; $ event', '; $event ='])(
     'should not parse binding if payload syntax is incorrect › %s',
