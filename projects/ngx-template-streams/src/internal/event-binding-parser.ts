@@ -1,6 +1,6 @@
 import { none, some } from 'fp-ts/lib/Option';
 
-const REGEX = /\(\s*\*(?<event>[^*\"]+)\)\s*\=\s*[\\]?\"[\(]*(?<stream>[^\(\)\\;]+)[\)]*(?:[;][\s]*\$event\s*=\s*(?<payload>[^"\\]+))?[\\]?\"/g;
+const REGEX = /\(\s*\*(?<event>[^*"]+)\)\s*=\s*[\\]?"[(]*(?<stream>[^()\\;]+)[)]*(?:[;][\s]*\$event\s*=\s*(?<payload>[^"\\]+))?[\\]?"/g;
 
 export function parseEventBindings(template: string) {
   const eventBindings: Array<RegExpExecArray> = [];

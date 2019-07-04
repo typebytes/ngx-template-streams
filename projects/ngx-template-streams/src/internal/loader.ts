@@ -7,7 +7,9 @@ const TEMPLATE_REGEX = /(.+?)"((?:\\.|[^"\\])*)"/;
 
 export default function transformHtmlLoader(source: string): string;
 export default function transformHtmlLoader(this: loader.LoaderContext, source: string): string {
-  this.cacheable && this.cacheable();
+  if (this.cacheable) {
+    this.cacheable();
+  }
 
   return parseModule(source)
     .chain(([, moduleExport, template]) => {

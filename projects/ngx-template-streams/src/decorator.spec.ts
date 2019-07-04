@@ -46,7 +46,7 @@ describe('@ObservableEvent Decorator', () => {
     }
 
     expect(() => {
-      new TestClass();
+      const test = new TestClass();
     }).toThrow(`[ObservableEvent] Value was ${typeof value} but has to be an Observable.`);
   });
 

@@ -3,11 +3,16 @@ import { resolve } from 'path';
 import * as ts from 'typescript';
 import { fixtures } from '../testing/test-helpers';
 import * as transformers from './transformers';
-import { getSourceFile } from './webpack-compiler-host';
+import { getSourceFile, RESOURCE_LOADER } from './webpack-compiler-host';
 
 class MockedWebpackCompilerHost {
+  /* AOT Flag */
   _resourceLoader = null;
+
+  /* Cache for source files */
   _sourceFileCache = new Map();
+
+  /* Whether or not files should be cached */
   cacheSourceFiles = false;
 
   resolve(fileName: string) {
@@ -38,7 +43,7 @@ describe('WebpackCompilerHost', () => {
 
   it('should not call transformers in JIT mode', () => {
     // enable JIT mode
-    compilerHost._resourceLoader = null;
+    compilerHost[RESOURCE_LOADER] = null;
 
     patchedGetSourceFile('full-example.component.ts', ts.ScriptTarget.Latest);
 
@@ -48,7 +53,7 @@ describe('WebpackCompilerHost', () => {
 
   it('should not call transformers if the file does not contain a component', () => {
     // enable AOT mode
-    compilerHost._resourceLoader = {};
+    compilerHost[RESOURCE_LOADER] = {};
 
     patchedGetSourceFile('empty-file.ts', ts.ScriptTarget.Latest);
 
@@ -66,7 +71,7 @@ describe('WebpackCompilerHost', () => {
   it('should not call transformers if the file has been cached', () => {
     // enable caching and AOT
     compilerHost.cacheSourceFiles = true;
-    compilerHost._resourceLoader = {};
+    compilerHost[RESOURCE_LOADER] = {};
 
     const fileName = 'full-example.component.ts';
 

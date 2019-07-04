@@ -4,6 +4,10 @@ import * as webpack from 'webpack';
 import { inlineTemplateTransformer } from './transformers';
 import { getSourceFile } from './webpack-compiler-host';
 
+// This key is used to access a private property on the AngularCompilerPlugin
+// that indicates whether we are running in JIT mode or not
+export const JIT_MODE = '_JitMode';
+
 /**
  * For AOT we have to patch the WebpackCompilerHost's getSourceFile method to run source code transformations
  * before the compiler generates AOT artifacts (both Ivy and ViewEngine).
@@ -68,9 +72,9 @@ function addTransformer(acp: any, transformer: any): void {
 }
 
 function removeCompilerPlugin(plugins: webpack.Plugin[], acp: webpack.Plugin) {
-  return plugins.filter(plugin => plugin != acp);
+  return plugins.filter(plugin => plugin !== acp);
 }
 
 function isJitMode(plugin: AngularCompilerPlugin) {
-  return plugin['_JitMode'];
+  return plugin[JIT_MODE];
 }

@@ -1,4 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
+import { SchematicsException } from '@angular-devkit/schematics';
 
 type DependencyType = 'dependencies' | 'devDependencies' | 'peerDependencies';
 
@@ -9,8 +10,13 @@ export function addPackageToPackageJson(
   depType: DependencyType = 'dependencies'
 ): Tree {
   if (host.exists('package.json')) {
-    const sourceText = host.read('package.json')!.toString('utf-8');
-    const json = JSON.parse(sourceText);
+    const packageJson = host.read('package.json');
+
+    if (!packageJson) {
+      throw new SchematicsException('Could not find package.json');
+    }
+
+    const json = JSON.parse(packageJson.toString());
 
     if (!json[depType]) {
       json[depType] = {};

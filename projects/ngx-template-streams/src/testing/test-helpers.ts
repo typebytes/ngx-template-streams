@@ -19,8 +19,8 @@ export function rawSource(strings: TemplateStringsArray, ...values: any[]) {
   return tags.stripIndent(strings, values);
 }
 
-export function getParserResultGroups(result: Option<RegExpMatchArray[]>) {
-  const results = result.getOrElse([]) as RegExpExecArray[];
+export function getParserResultGroups(matches: Option<RegExpMatchArray[]>) {
+  const results = matches.getOrElse([]) as RegExpExecArray[];
   return results.map(result => result.groups);
 }
 

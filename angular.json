@@ -120,7 +120,7 @@
               "projects/ngx-template-streams/tsconfig.lib.json",
               "projects/ngx-template-streams/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "**/fixtures/**"]
           }
         }
       }

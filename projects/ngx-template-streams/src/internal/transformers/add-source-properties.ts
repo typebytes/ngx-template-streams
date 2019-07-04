@@ -2,9 +2,7 @@ import { tsquery } from '@phenomnomnominal/tsquery';
 import * as ts from 'typescript';
 import { findNodes } from '../../utils/transformer-helpers';
 import { INTERNAL_PREFIX } from '../constants';
-
-const COMPONENT_CLASS_QUERY = `ClassDeclaration:has(Decorator:has(Identifier[name="Component"]))`;
-const OBSERVABLE_EVENT_QUERY = `PropertyDeclaration:has(Decorator:has(Identifier[name="ObservableEvent"]))`;
+import { COMPONENT_CLASS_QUERY, OBSERVABLE_EVENT_QUERY } from './queries';
 
 export function addSourcePropertiesTransformer(context: ts.TransformationContext) {
   return (sourceFile: ts.SourceFile) => {
@@ -20,7 +18,7 @@ function addSourceProperties(sourceFile: ts.SourceFile, context: ts.Transformati
       if (nodes.includes(node)) {
         const classDeclaration = node as ts.ClassDeclaration;
 
-        let observableEvents = tsquery(classDeclaration, OBSERVABLE_EVENT_QUERY) as ts.ClassElement[];
+        const observableEvents = tsquery(classDeclaration, OBSERVABLE_EVENT_QUERY) as ts.ClassElement[];
 
         if (!observableEvents.length) {
           return node;

@@ -2,8 +2,7 @@ import { some } from 'fp-ts/lib/Option';
 import * as ts from 'typescript';
 import { findNodes } from '../../utils/transformer-helpers';
 import { updateEventBindings } from '../event-binding-engine';
-
-const INLINE_TEMPLATE_QUERY = `ClassDeclaration:has(Decorator:has(Identifier[name="Component"])) PropertyAssignment:has(Identifier[name="template"])`;
+import { INLINE_TEMPLATE_QUERY } from './queries';
 
 export function inlineTemplateTransformer(context: ts.TransformationContext) {
   return (sourceFile: ts.SourceFile) => {

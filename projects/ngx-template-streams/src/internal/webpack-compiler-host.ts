@@ -6,6 +6,10 @@ import { addSourcePropertiesTransformer, inlineTemplateTransformer } from './tra
 
 const COMPONENT_DECORATOR_QUERY = 'ClassDeclaration:has(Decorator:has(Identifier[name="Component"]))';
 
+// This key is used to access a private property on the compiler host
+// that indicates whether we are running in AOT or not
+export const RESOURCE_LOADER = '_resourceLoader';
+
 export function getSourceFile(fileName: string, languageVersion: ts.ScriptTarget, onError?: OnErrorFn): ts.SourceFile {
   const p = this.resolve(fileName);
 
@@ -44,7 +48,7 @@ export function getSourceFile(fileName: string, languageVersion: ts.ScriptTarget
 }
 
 function getResourceLoader(host: WebpackCompilerHost) {
-  return host['_resourceLoader'];
+  return host[RESOURCE_LOADER];
 }
 
 function isComponentFile(sourceFile: ts.SourceFile) {

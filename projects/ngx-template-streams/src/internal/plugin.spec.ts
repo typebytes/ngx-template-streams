@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import * as ts from 'typescript';
 import * as webpack from 'webpack';
 import { fixtures } from '../testing/test-helpers';
-import Plugin from './plugin';
+import Plugin, { JIT_MODE } from './plugin';
 import { inlineTemplateTransformer } from './transformers';
 
 describe('Plugin', () => {
@@ -51,7 +51,7 @@ describe('Plugin', () => {
   });
 
   it('should add inlineTemplateTransformer in JIT mode', () => {
-    angularCompilerPlugin['_JitMode'] = true;
+    angularCompilerPlugin[JIT_MODE] = true;
 
     const webpackConfig: webpack.Configuration = {
       plugins: [angularCompilerPlugin]
@@ -68,7 +68,7 @@ describe('Plugin', () => {
   });
 
   it('should disable forkTypeChecker in AOT mode', () => {
-    angularCompilerPlugin['_JitMode'] = false;
+    angularCompilerPlugin[JIT_MODE] = false;
 
     const webpackConfig: webpack.Configuration = {
       plugins: [angularCompilerPlugin]

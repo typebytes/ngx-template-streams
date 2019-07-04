@@ -1,8 +1,8 @@
-import { Observable, pipe, Subject, UnaryFunction } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 export function ObservableEvent<T>(subjectOrSubjectFactory?: Subject<T> | (() => Subject<T>)) {
   return (target: any, propertyKey: string | symbol) => {
-    let value = undefined;
+    let value: Observable<any>;
 
     const subjectFactory = createSubjectFactory(subjectOrSubjectFactory);
     const eventSource$ = subjectFactory();
@@ -11,7 +11,7 @@ export function ObservableEvent<T>(subjectOrSubjectFactory?: Subject<T> | (() =>
       get() {
         return value;
       },
-      set(propertyValue: any) {
+      set(propertyValue: Observable<any>) {
         if (!isObservable(propertyValue)) {
           throw new Error(`[ObservableEvent] Value was ${typeof propertyValue} but has to be an Observable.`);
         }
@@ -37,7 +37,7 @@ function createSubjectFactory<T>(subjectOrSubjectFactory: Subject<T> | (() => Su
   if (typeof subjectOrSubjectFactory === 'function') {
     subjectFactory = subjectOrSubjectFactory;
   } else {
-    subjectFactory = function subjectFactory() {
+    subjectFactory = () => {
       return subjectOrSubjectFactory;
     };
   }
