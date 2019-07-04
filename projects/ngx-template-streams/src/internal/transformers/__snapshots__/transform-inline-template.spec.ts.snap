@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineTemplateTransformer should apply transformation to inline template 1`] = `
+"import { Component } from '@angular/core';
+@Component({
+    selector: 'test',
+    template: \`<button (click)=\\"__click$.next('the payload')\\">Click Me</button>\`,
+    styleUrls: ['./app.component.css']
+})
+export class TestComponent {
+}
+"
+`;
+
+exports[`InlineTemplateTransformer should not apply transformation if component has an external template 1`] = `
+"import { Component } from '@angular/core';
+@Component({
+    selector: 'test',
+    templateUrl: './some/path',
+    styleUrls: ['./app.component.css']
+})
+export class TestComponent {
+}
+"
+`;
+
+exports[`InlineTemplateTransformer should not apply transformation to empty file 1`] = `""`;
+
+exports[`InlineTemplateTransformer should transform inline template of multiple classes in a single file 1`] = `
+"import { Component } from '@angular/core';
+import { ObservableEvent } from 'ngx-template-streams';
+import { Observable } from 'rxjs';
+@Component({
+    selector: 'a',
+    template: \`<button (click)=\\"__a$.next($event)\\">Test<button>\`
+})
+export class ClassA {
+    @ObservableEvent()
+    a$: Observable<any>;
+}
+@Component({
+    selector: 'b',
+    template: \`<button (click)=\\"__b$.next($event)\\">Test<button>\`
+})
+export class ClassB {
+    @ObservableEvent()
+    b$: Observable<any>;
+}
+"
+`;

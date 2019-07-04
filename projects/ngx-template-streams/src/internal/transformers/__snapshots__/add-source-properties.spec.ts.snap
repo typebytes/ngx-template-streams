@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddSourcePropertiesTransformer should add source properties for each observable event 1`] = `
+"import { Component } from '@angular/core';
+import { ObservableEvent } from 'ngx-template-streams';
+import { Observable } from 'rxjs';
+@Component({
+    selector: 'test',
+    template: \`
+    <button (*click)=\\"click$\\">Click Me</button>
+    <input (*focus)=\\"focus$\\" />
+  \`,
+    styleUrls: ['./app.component.css']
+})
+export class TestComponent {
+    @ObservableEvent()
+    click$: Observable<any>;
+    @ObservableEvent()
+    focus$: Observable<any>;
+    __click$;
+    __focus$;
+}
+"
+`;
+
+exports[`AddSourcePropertiesTransformer should not apply transformation if the file is empty 1`] = `""`;
+
+exports[`AddSourcePropertiesTransformer should return original source file if it has no observable events 1`] = `
+"import { Component } from '@angular/core';
+@Component({
+    selector: 'test',
+    template: 'test',
+    styleUrls: ['./empty.component.css']
+})
+export class TestComponent {
+}
+"
+`;
+
+exports[`AddSourcePropertiesTransformer should transform multiple classes in a single file 1`] = `
+"import { Component } from '@angular/core';
+import { ObservableEvent } from 'ngx-template-streams';
+import { Observable } from 'rxjs';
+@Component({
+    selector: 'a',
+    template: '<button (*click)=\\"a$\\">Test<button>'
+})
+export class ClassA {
+    @ObservableEvent()
+    a$: Observable<any>;
+    __a$;
+}
+@Component({
+    selector: 'b',
+    template: '<button (*click)=\\"b$\\">Test<button>'
+})
+export class ClassB {
+    @ObservableEvent()
+    b$: Observable<any>;
+    __b$;
+}
+"
+`;

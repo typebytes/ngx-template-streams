@@ -1,11 +1,10 @@
-import Plugin from './plugin';
-import * as webpack from 'webpack';
 import { AngularCompilerPlugin } from '@ngtools/webpack';
 import { resolve } from 'path';
-import { templateStreamTransformer } from './transformer';
 import * as ts from 'typescript';
-
-const fixtures = resolve(__dirname, '../fixtures');
+import * as webpack from 'webpack';
+import { fixtures } from '../testing/test-helpers';
+import Plugin from './plugin';
+import { inlineTemplateTransformer } from './transformers';
 
 describe('Plugin', () => {
   let angularCompilerPlugin: AngularCompilerPlugin;
@@ -24,7 +23,7 @@ describe('Plugin', () => {
     }).toThrow('Could not inject TypeScript Transformer: Webpack AngularCompilerPlugin not found');
   });
 
-  it('should remove existing AngularCompilerPlugin and insert new one', () => {
+  it('should remove existing AngularCompilerPlugin and insert new instance', () => {
     const webpackConfig: webpack.Configuration = {
       plugins: [angularCompilerPlugin]
     };
@@ -36,6 +35,7 @@ describe('Plugin', () => {
 
     expect(hasOldPlugin).toBe(false);
     expect(updatedPlugin).not.toEqual(angularCompilerPlugin);
+    expect(updatedPlugin.options).toMatchObject(angularCompilerPlugin.options);
     expect(updatedPlugin instanceof AngularCompilerPlugin).toBe(true);
   });
 
@@ -50,7 +50,9 @@ describe('Plugin', () => {
     expect(updatedPlugin.options.directTemplateLoading).toBe(false);
   });
 
-  it('should add template transformer', () => {
+  it('should add inlineTemplateTransformer in JIT mode', () => {
+    angularCompilerPlugin['_JitMode'] = true;
+
     const webpackConfig: webpack.Configuration = {
       plugins: [angularCompilerPlugin]
     };
@@ -59,9 +61,22 @@ describe('Plugin', () => {
     const updatedPlugin = config.plugins[0] as AngularCompilerPlugin;
 
     const hasTemplateTransformer = (updatedPlugin as any)._transformers.find(
-      (fn: ts.Transformer<any>) => fn === templateStreamTransformer
+      (fn: ts.Transformer<any>) => fn === inlineTemplateTransformer
     );
 
     expect(hasTemplateTransformer).toBeDefined();
+  });
+
+  it('should disable forkTypeChecker in AOT mode', () => {
+    angularCompilerPlugin['_JitMode'] = false;
+
+    const webpackConfig: webpack.Configuration = {
+      plugins: [angularCompilerPlugin]
+    };
+
+    const config = Plugin.config(webpackConfig);
+    const updatedPlugin = config.plugins[0] as AngularCompilerPlugin;
+
+    expect(updatedPlugin.options.forkTypeChecker).toBe(false);
   });
 });

@@ -1,18 +1,16 @@
-import { tsquery } from '@phenomnomnominal/tsquery';
-import { none, some } from 'fp-ts/lib/Option';
+import { some } from 'fp-ts/lib/Option';
 import * as ts from 'typescript';
-import { updateEventBindings } from './event-binding-engine';
+import { findNodes } from '../../utils/transformer-helpers';
+import { updateEventBindings } from '../event-binding-engine';
 
 const INLINE_TEMPLATE_QUERY = `ClassDeclaration:has(Decorator:has(Identifier[name="Component"])) PropertyAssignment:has(Identifier[name="template"])`;
 
-export function templateStreamTransformer(context: ts.TransformationContext) {
+export function inlineTemplateTransformer(context: ts.TransformationContext) {
   return (sourceFile: ts.SourceFile) => {
-    return transformInlineTemplate(sourceFile, context).getOrElse(sourceFile);
+    return findInlineTemplate(sourceFile)
+      .map(updateInlineTemplate(sourceFile, context))
+      .getOrElse(sourceFile);
   };
-}
-
-function transformInlineTemplate(sourceFile: ts.SourceFile, context: ts.TransformationContext) {
-  return findInlineTemplate(sourceFile).map(updateInlineTemplate(sourceFile, context));
 }
 
 function updateInlineTemplate(sourceFile: ts.SourceFile, context: ts.TransformationContext) {
@@ -45,6 +43,5 @@ function extractTemplateFromTemplateLiteral(templateLiteral: string) {
 }
 
 function findInlineTemplate(sourceFile: ts.SourceFile) {
-  const nodes = tsquery(sourceFile, INLINE_TEMPLATE_QUERY) as ts.PropertyAssignment[];
-  return nodes.length ? some(nodes) : none;
+  return findNodes<ts.PropertyAssignment>(sourceFile, INLINE_TEMPLATE_QUERY);
 }
