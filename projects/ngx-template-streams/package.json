@@ -1,6 +1,6 @@
 {
   "name": "ngx-template-streams",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "schematics": "./schematics/collection.json",
   "dependencies": {
