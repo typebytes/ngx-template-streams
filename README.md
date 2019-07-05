@@ -15,19 +15,21 @@ Take your Angular templates to the next level by **embracing reactivity**. This 
 
 ## 🙏 Credits
 
-Big thanks to [Filipe Silva](https://twitter.com/filipematossilv), [Craig Spence](https://twitter.com/phenomnominal) and [Manfred Steyer](https://twitter.com/ManfredSteyer) for his amazing [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) library!
+Big thanks to [Filipe Silva](https://twitter.com/filipematossilv), [Craig Spence](https://twitter.com/phenomnominal), [Alexey Zuev
+](https://twitter.com/yurzui) and [Manfred Steyer](https://twitter.com/ManfredSteyer) for his amazing [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) library!
 
 ## Table of contents
 
 - [Quickstart](#quickstart)
+- [Syntax](#syntax)
 - [Usage](#usage)
 - [API](#api)
 - [Manual Installation](#manual-installation)
 - [Why](#why-⁉️)
 - [Want to contribute?](#👷-want-to-contribute)
-- [Versioning](#versioning)
 - [Notes](#notes)
 - [FAQ](#faq)
+- [Versioning](#versioning)
 - [Licence](#📄-licence)
 
 ## Quickstart
@@ -52,6 +54,28 @@ The schematic will:
 - configure `serve`, `build`, and `test` architects of your app (these will use a custom builder to allow for custom webpack configurations)
 
 Once all that is done, we can take adventage of this library and define some event streams in our templates 🎉
+
+## Syntax
+
+The syntax is simple. Here's the full specification:
+
+```
+(*<event-name>)="<template-stream-name>[; $event = <payload>]"
+```
+
+- `*` marks the event binding as a template stream binding
+- `[]` denotes optional parts of the synax
+- `<placeholder>` represent placeholders you can fill in
+
+More specifically there are 3 core building blocks:
+
+1. event name
+2. template stream name
+3. payload
+
+The payload is **optional** and can litereally be anything as long as it follows the syntax above. So optional doesn't mean you can go wild and define the payload in whatever form you like. More on this [here](#overwriting-the-event-payload).
+
+Now, let's check out how we can use this in our app 👇
 
 ## Usage
 
