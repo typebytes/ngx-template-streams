@@ -10,7 +10,7 @@ interface NgxBuildPlusOptions {
   plugin: string;
 }
 
-const libPath = 'node_modules/ngx-template-streams';
+const libPath = 'node_modules/@typebytes/ngx-template-streams';
 
 export default function(options: AddSchema): Rule {
   return (tree: Tree) => {

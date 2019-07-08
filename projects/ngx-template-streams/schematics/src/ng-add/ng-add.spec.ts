@@ -46,8 +46,8 @@ describe('Add Schematic', () => {
     const architect = workspace.projects[project].architect;
 
     const expected = {
-      extraWebpackConfig: 'node_modules/ngx-template-streams/webpack/webpack.config.js',
-      plugin: '~node_modules/ngx-template-streams/internal/plugin.js'
+      extraWebpackConfig: 'node_modules/@typebytes/ngx-template-streams/webpack/webpack.config.js',
+      plugin: '~node_modules/@typebytes/ngx-template-streams/internal/plugin.js'
     };
 
     expect(architect.build.options).toMatchObject(expected);
