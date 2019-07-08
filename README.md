@@ -41,7 +41,7 @@ The most straightforward way to get started with this library is to use its `ng 
 Simply run:
 
 ```bash
-ng add ngx-template-streams
+ng add @typebytes/ngx-template-streams
 ```
 
 This will do all the heavy (actually not so heavy) lifting for your and add the library to your project.
@@ -230,7 +230,7 @@ ng add ngx-build-plus
 Next, we can install `ngx-template-streams` and save it as a dependency of our project:
 
 ```bash
-npm install ngx-template-streams -S
+npm install @typebytes/ngx-template-streams -S
 ```
 
 Now, we can update the `angular.json` and add some extra configuration options to the `build`, `serve` and `test` architect.
