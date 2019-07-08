@@ -99,7 +99,7 @@ Next, we have to declare this property `clicks$` on the component class. For tha
 
 ```ts
 import { Component, OnInit } from '@angular/core';
-import { ObservableEvent } from 'ngx-template-streams';
+import { ObservableEvent } from '@typebytes/ngx-template-streams';
 import { Observable } from 'rxjs';
 
 @Component({...})
@@ -152,7 +152,7 @@ For example:
 
 ```ts
 import { Component, OnInit } from '@angular/core';
-import { ObservableEvent } from 'ngx-template-streams';
+import { ObservableEvent } from '@typebytes/ngx-template-streams';
 import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -244,8 +244,8 @@ For each of those architect targets add the following additional options:
         [...],
         "options": {
           [...],
-          "extraWebpackConfig": "node_modules/ngx-template-streams/webpack/webpack.config.js",
-          "plugin": "~node_modules/ngx-template-streams/internal/plugin.js"
+          "extraWebpackConfig": "node_modules/@typebytes/ngx-template-streams/webpack/webpack.config.js",
+          "plugin": "~node_modules/@typebytes/ngx-template-streams/internal/plugin.js"
         }
     }
 }
@@ -283,7 +283,7 @@ When running your app in AOT mode, formatting (mostly whitespace in form of newl
 ### What if I already have a custom Webpack configuration?
 
 If you are already using a custom webpack configuration to adjust the behavior of the build process, it's recommended
-to follow the [manual installation guide](#manual-installation) instead of using the `ng add` schematic. We recommend to stick to [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) as it's very convenient to work with and create a plugin that takes care of merging in your custom webpack config as well as the one provided by `ngx-template-streams`. Finally, you have to call our build plugin (you'll find this in `ngx-template-streams/internal/plugin.js`) to make sure the compiler plugin is correctly configured to allow template and AST transformations.
+to follow the [manual installation guide](#manual-installation) instead of using the `ng add` schematic. We recommend to stick to [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) as it's very convenient to work with and create a plugin that takes care of merging in your custom webpack config as well as the one provided by `ngx-template-streams`. Finally, you have to call our build plugin (you'll find this in `@typebytes/ngx-template-streams/internal/plugin.js`) to make sure the compiler plugin is correctly configured to allow template and AST transformations.
 
 ## Versioning
 
