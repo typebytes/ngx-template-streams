@@ -1,5 +1,5 @@
 {
-  "name": "ngx-template-streams",
+  "name": "@typebytes/ngx-template-streams",
   "version": "1.0.0",
   "license": "MIT",
   "schematics": "./schematics/collection.json",
