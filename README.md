@@ -1,6 +1,8 @@
 # ngx-template-streams
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![npm](https://img.shields.io/npm/v/@typebytes/ngx-template-streams.svg)](https://www.npmjs.com/package/@typebytes/ngx-template-streams)
+[![npm License](https://img.shields.io/npm/l/@typebytes/ngx-template-streams.svg)](https://github.com/typebytes/ngx-template-streams/blob/master/LICENSE)
 
 Take your Angular templates to the next level by **embracing reactivity**. This is a small and lightweight library that provides a simple DSL enabling event streams in templates. In other words, this library will **supercharge your templates with Observables**. Use a declerative syntax to create Observables from different event sources, such as native DOM events, or component outputs.
 
