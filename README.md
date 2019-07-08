@@ -256,7 +256,7 @@ That's it! You are now ready to use template streams! 🎉
 
 ## Why ⁉️
 
-Because Observales rock 🤘. Everything is a stream and being able to also embrace reactivity in our templates improves the developer experience so that we don't have to constantly switch between different programming paradigms (imperative vs. functional reactive programming).
+Because Observables rock 🤘. Everything is a stream and being able to also embrace reactivity in our templates improves the developer experience so that we don't have to constantly switch between different programming paradigms (imperative vs. functional reactive programming).
 
 Also, this feature has been requested by the community for a long time and there is an [open issue](https://github.com/angular/angular/issues/13248) on GitHub since 2016.
 
