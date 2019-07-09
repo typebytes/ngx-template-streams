@@ -12,7 +12,7 @@ This library is **experimental** and its goal is to explore how to create event 
 
 We like reactive programming and with this experiment we hope to push this forward within the Angular community and to help drive the adoption of a similar syntax or feature set that is integrated into Angular.
 
-**Can I use this now?** Definitely! If at some point our implementation breaks, or Angular releases its own syntax, we will provide a schematic that will help you seamlessly migrate your code to keep the impact on you as small as possible.
+**Can I use this now?** Definitely! If at some point our implementation breaks, or Angular releases its own syntax, we will provide a schematic that will help you seamlessly migrate your code to keep the impact on your projects as small as possible.
 
 ## Features
 
