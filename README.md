@@ -6,6 +6,14 @@
 
 Take your Angular templates to the next level by **embracing reactivity**. This is a small and lightweight library that provides a simple DSL enabling event streams in templates. In other words, this library will **supercharge your templates with Observables**. Use a declerative syntax to create Observables from different event sources, such as native DOM events, or component outputs.
 
+**⚠️ Disclaimer ⚠️**
+
+This library is **experimental** and its goal is to explore how we could create event streams from templates in Angular. To do this, we hooked into the build process and apply HTML and TypeScript transformations, as well as patch some other internal APIs to make this work with AOT.
+
+We like reactive programming and with this experiment we hope that we can push this forward in the Angular community and to help drive the adoption of a similar syntax or feature set that is baked right into Angular.
+
+**Can I use this now?** Definitely! If at some point our implementation breaks, or Angular releases its own syntax, we will provide a schematic that will help you seamlessly migrate your code to keep the impact on you as small as possible.
+
 ## Features
 
 - ✅ Works with both `ViewEngine` and `Ivy`
