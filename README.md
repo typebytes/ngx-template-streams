@@ -293,6 +293,10 @@ When running your app in AOT mode, formatting (mostly whitespace in form of newl
 If you are already using a custom webpack configuration to adjust the behavior of the build process, it's recommended
 to follow the [manual installation guide](#manual-installation) instead of using the `ng add` schematic. We recommend to stick to [ngx-build-plus](https://github.com/manfredsteyer/ngx-build-plus) as it's very convenient to work with and create a plugin that takes care of merging in your custom webpack config as well as the one provided by `ngx-template-streams`. Finally, you have to call our build plugin (you'll find this in `@typebytes/ngx-template-streams/internal/plugin.js`) to make sure the compiler plugin is correctly configured to allow template and AST transformations.
 
+### Do I need to unsubscribe from my event streams?
+
+No, that's not necessary. The library will automatically complete and clean up every event stream for you when the component is destroyed.
+
 ## Versioning
 
 `ngx-template-streams` will be maintained under the Semantic Versioning guidelines. Releases are numbered with the following format:

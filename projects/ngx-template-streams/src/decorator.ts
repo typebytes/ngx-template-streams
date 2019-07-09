@@ -7,6 +7,15 @@ export function ObservableEvent<T>(subjectOrSubjectFactory?: Subject<T> | (() =>
     const subjectFactory = createSubjectFactory(subjectOrSubjectFactory);
     const eventSource$ = subjectFactory();
 
+    const originalOnDestroy = target.ngOnDestroy;
+    target.ngOnDestroy = function() {
+      eventSource$.complete();
+
+      if (originalOnDestroy && isFunction(originalOnDestroy)) {
+        originalOnDestroy.apply(this, arguments);
+      }
+    };
+
     Object.defineProperty(target, propertyKey, {
       get() {
         return value;
@@ -29,6 +38,10 @@ export function ObservableEvent<T>(subjectOrSubjectFactory?: Subject<T> | (() =>
 
 function isObservable(object: any) {
   return object instanceof Observable;
+}
+
+function isFunction(fn: any) {
+  return typeof fn === 'function';
 }
 
 function createSubjectFactory<T>(subjectOrSubjectFactory: Subject<T> | (() => Subject<T>) = new Subject()) {
