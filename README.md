@@ -63,7 +63,7 @@ The schematic will:
 - install necessary dependencies
 - configure `serve`, `build`, and `test` architects of your app (these will use a custom builder to allow for custom webpack configurations)
 
-Once all that is done, we can take adventage of this library and define some event streams in our templates 🎉.
+Once all that is done, we can take advantage of this library and define some event streams in our templates 🎉.
 
 ## Syntax
 
