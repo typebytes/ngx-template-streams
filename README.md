@@ -273,7 +273,7 @@ import { ObservableChild } from '@typebytes/ngx-template-streams';
   `
 })
 export class AppComponent {
-  @ObservableChild('btn', 'click', { static: true })
+  @ObservableChild('btn', 'click', { static: true, passive: true })
   clicks$: Observable<any>;
 
   /**
@@ -314,7 +314,7 @@ import { ObservableChildren } from '@typebytes/ngx-template-streams';
   `
 })
 export class AppComponent {
-  @ObservableChildren(TestComponent, 'myOutput', { passive: true })
+  @ObservableChildren(TestComponent, 'myOutput')
   aggregatedOutputs$: Observable<any>;
 
   /**
