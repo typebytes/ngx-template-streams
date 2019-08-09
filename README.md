@@ -303,7 +303,7 @@ Example:
 
 ```ts
 import { Component } from '@angular/core';
-import { ObservableChild } from '@typebytes/ngx-template-streams';
+import { ObservableChildren } from '@typebytes/ngx-template-streams';
 
 @Component({
   ...,
