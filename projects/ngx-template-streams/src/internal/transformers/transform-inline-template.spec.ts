@@ -1,13 +1,13 @@
 import { resolve } from 'path';
 import { fixtures, getFixtureFactory } from '../../testing/test-helpers';
-import { transform } from '../../testing/ts-compiler';
+import { transformFile } from '../../testing/ts-compiler';
 import * as engine from '../event-binding-engine';
 import * as transformer from './transform-inline-template';
 
 const getComponentFixture = getFixtureFactory('component');
 const getFixture = getFixtureFactory();
 
-describe('InlineTemplateTransformer', () => {
+describe('inlineTemplateTransformer', () => {
   let transformerSpy: jest.SpyInstance;
   let updateEventBindingsSpy: jest.SpyInstance;
 
@@ -23,7 +23,7 @@ describe('InlineTemplateTransformer', () => {
   it('should apply transformation to inline template', () => {
     const { sourceFile } = getComponentFixture('inline-template');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
 
     expect(output).toMatchSnapshot();
     expect(transformerSpy).toHaveBeenCalled();
@@ -33,7 +33,7 @@ describe('InlineTemplateTransformer', () => {
   it('should not apply transformation if component has an external template', () => {
     const { sourceFile } = getComponentFixture('external-template');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
 
     expect(output).toMatchSnapshot();
     expect(updateEventBindingsSpy).not.toHaveBeenCalled();
@@ -42,7 +42,7 @@ describe('InlineTemplateTransformer', () => {
   it('should not apply transformation to empty file', () => {
     const { sourceFile } = getFixture('empty-file');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
 
     expect(output).toMatchSnapshot();
     expect(updateEventBindingsSpy).not.toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe('InlineTemplateTransformer', () => {
   it('should transform inline template of multiple classes in a single file', () => {
     const { sourceFile } = getFixture('multiple-classes');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.inlineTemplateTransformer]);
 
     expect(output).toMatchSnapshot();
     expect(updateEventBindingsSpy).toHaveBeenCalledTimes(2);

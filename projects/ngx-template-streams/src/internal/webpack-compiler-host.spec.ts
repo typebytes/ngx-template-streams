@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as ts from 'typescript';
 import { fixtures } from '../testing/test-helpers';
-import * as transformers from './transformers';
+import { aotTransformers } from './transformers';
 import { getSourceFile, RESOURCE_LOADER } from './webpack-compiler-host';
 
 class MockedWebpackCompilerHost {
@@ -27,14 +27,25 @@ class MockedWebpackCompilerHost {
 describe('WebpackCompilerHost', () => {
   let compilerHost: MockedWebpackCompilerHost;
   let patchedGetSourceFile: typeof getSourceFile;
-  let transformInlineTemplateSpy: jest.SpyInstance;
-  let addSourcePropertiesSpy: jest.SpyInstance;
+  let transformSpy: jest.SpyInstance;
+
+  const enableJIT = () => {
+    compilerHost[RESOURCE_LOADER] = null;
+  };
+
+  const enableAOT = () => {
+    compilerHost[RESOURCE_LOADER] = {};
+  };
+
+  const enableCaching = () => {
+    compilerHost.cacheSourceFiles = true;
+  };
 
   beforeEach(() => {
     compilerHost = new MockedWebpackCompilerHost();
     patchedGetSourceFile = getSourceFile.bind(compilerHost);
-    transformInlineTemplateSpy = jest.spyOn(transformers, 'inlineTemplateTransformer');
-    addSourcePropertiesSpy = jest.spyOn(transformers, 'addSourcePropertiesTransformer');
+
+    transformSpy = jest.spyOn(ts, 'transform');
   });
 
   afterEach(() => {
@@ -42,65 +53,58 @@ describe('WebpackCompilerHost', () => {
   });
 
   it('should not call transformers in JIT mode', () => {
-    // enable JIT mode
-    compilerHost[RESOURCE_LOADER] = null;
+    enableJIT();
 
     patchedGetSourceFile('full-example.component.ts', ts.ScriptTarget.Latest);
 
-    expect(transformInlineTemplateSpy).not.toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).not.toHaveBeenCalled();
+    expect(transformSpy).not.toHaveBeenCalled();
   });
 
   it('should not call transformers if the file does not contain a component', () => {
-    // enable AOT mode
-    compilerHost[RESOURCE_LOADER] = {};
+    enableAOT();
 
     patchedGetSourceFile('empty-file.ts', ts.ScriptTarget.Latest);
 
-    expect(transformInlineTemplateSpy).not.toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).not.toHaveBeenCalled();
+    expect(transformSpy).not.toHaveBeenCalled();
   });
 
   it('should call transformers if AOT is enabled and file contains a component', () => {
+    enableAOT();
+
     patchedGetSourceFile('full-example.component.ts', ts.ScriptTarget.Latest);
 
-    expect(transformInlineTemplateSpy).not.toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).not.toHaveBeenCalled();
+    expect(transformSpy).toHaveBeenCalled();
+    expect(transformSpy.mock.calls[0][1]).toBe(aotTransformers);
   });
 
   it('should not call transformers if the file has been cached', () => {
-    // enable caching and AOT
-    compilerHost.cacheSourceFiles = true;
-    compilerHost[RESOURCE_LOADER] = {};
+    enableAOT();
+    enableCaching();
 
     const fileName = 'full-example.component.ts';
 
     const sourceFile = patchedGetSourceFile(fileName, ts.ScriptTarget.Latest);
 
-    expect(transformInlineTemplateSpy).toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).toHaveBeenCalled();
+    expect(transformSpy).toHaveBeenCalled();
     expect(compilerHost._sourceFileCache.get(fileName)).toEqual(sourceFile);
 
     // reset spies
-    transformInlineTemplateSpy.mockReset();
-    addSourcePropertiesSpy.mockReset();
+    transformSpy.mockReset();
 
     // call again with the same file name
     patchedGetSourceFile(fileName, ts.ScriptTarget.Latest);
 
-    expect(transformInlineTemplateSpy).not.toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).not.toHaveBeenCalled();
+    expect(transformSpy).not.toHaveBeenCalled();
   });
 
-  it('should not call transformers if the file has been cached', () => {
+  it('should gracefully return if an error occurs', () => {
     const onError = jest.fn();
 
     const sourceFile = patchedGetSourceFile('does-not-exist', ts.ScriptTarget.Latest, onError);
 
     expect(onError).toHaveBeenCalled();
     expect(onError.mock.calls[0][0]).toContain('ENOENT: no such file or directory');
-    expect(transformInlineTemplateSpy).not.toHaveBeenCalled();
-    expect(addSourcePropertiesSpy).not.toHaveBeenCalled();
+    expect(transformSpy).not.toHaveBeenCalled();
     expect(sourceFile).not.toBeDefined();
   });
 });

@@ -1,8 +1,8 @@
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as ts from 'typescript';
-import { findNodes } from '../../utils/transformer-helpers';
+import { getComponentClass } from '../../utils/ast-helpers';
 import { INTERNAL_PREFIX } from '../constants';
-import { COMPONENT_CLASS_QUERY, OBSERVABLE_EVENT_QUERY } from './queries';
+import { OBSERVABLE_EVENT_QUERY } from './queries';
 
 export function addSourcePropertiesTransformer(context: ts.TransformationContext) {
   return (sourceFile: ts.SourceFile) => {
@@ -53,8 +53,4 @@ function addSourceProperties(sourceFile: ts.SourceFile, context: ts.Transformati
 
     return ts.visitNode(sourceFile, visitor);
   };
-}
-
-function getComponentClass(sourceFile: ts.SourceFile) {
-  return findNodes<ts.ClassDeclaration>(sourceFile, COMPONENT_CLASS_QUERY);
 }

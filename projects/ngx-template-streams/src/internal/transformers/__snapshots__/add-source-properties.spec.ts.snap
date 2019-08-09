@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddSourcePropertiesTransformer should add source properties for each observable event 1`] = `
+exports[`addSourcePropertiesTransformer should add source properties for each observable event 1`] = `
 "import { Component } from '@angular/core';
 import { ObservableEvent } from 'ngx-template-streams';
 import { Observable } from 'rxjs';
@@ -23,9 +23,9 @@ export class TestComponent {
 "
 `;
 
-exports[`AddSourcePropertiesTransformer should not apply transformation if the file is empty 1`] = `""`;
+exports[`addSourcePropertiesTransformer should not apply transformation if the file is empty 1`] = `""`;
 
-exports[`AddSourcePropertiesTransformer should return original source file if it has no observable events 1`] = `
+exports[`addSourcePropertiesTransformer should return original source file if it has no observable events 1`] = `
 "import { Component } from '@angular/core';
 @Component({
     selector: 'test',
@@ -37,7 +37,7 @@ export class TestComponent {
 "
 `;
 
-exports[`AddSourcePropertiesTransformer should transform multiple classes in a single file 1`] = `
+exports[`addSourcePropertiesTransformer should transform multiple classes in a single file 1`] = `
 "import { Component } from '@angular/core';
 import { ObservableEvent } from 'ngx-template-streams';
 import { Observable } from 'rxjs';

@@ -1,12 +1,12 @@
 import { resolve } from 'path';
 import { fixtures, getFixtureFactory } from '../../testing/test-helpers';
-import { transform } from '../../testing/ts-compiler';
+import { transformFile } from '../../testing/ts-compiler';
 import * as transformer from './add-source-properties';
 
 const getComponentFixture = getFixtureFactory('component');
 const getFixture = getFixtureFactory();
 
-describe('AddSourcePropertiesTransformer', () => {
+describe('addSourcePropertiesTransformer', () => {
   let transformerSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('AddSourcePropertiesTransformer', () => {
   it('should not apply transformation if the file is empty', () => {
     const { sourceFile } = getFixture('empty-file');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
 
     expect(output).toMatchSnapshot();
     expect(transformerSpy).toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe('AddSourcePropertiesTransformer', () => {
   it('should add source properties for each observable event', () => {
     const { sourceFile } = getComponentFixture('full-example');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
 
     expect(output).toMatchSnapshot();
   });
@@ -37,7 +37,7 @@ describe('AddSourcePropertiesTransformer', () => {
   it('should return original source file if it has no observable events', () => {
     const { sourceFile } = getComponentFixture('empty');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
 
     expect(output).toMatchSnapshot();
   });
@@ -45,7 +45,7 @@ describe('AddSourcePropertiesTransformer', () => {
   it('should transform multiple classes in a single file', () => {
     const { sourceFile } = getFixture('multiple-classes');
 
-    const output = transform(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
+    const output = transformFile(resolve(fixtures, sourceFile), [transformer.addSourcePropertiesTransformer]);
 
     expect(output).toMatchSnapshot();
   });

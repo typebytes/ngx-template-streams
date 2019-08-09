@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InlineTemplateTransformer should apply transformation to inline template 1`] = `
+exports[`inlineTemplateTransformer should apply transformation to inline template 1`] = `
 "import { Component } from '@angular/core';
 @Component({
     selector: 'test',
@@ -12,7 +12,7 @@ export class TestComponent {
 "
 `;
 
-exports[`InlineTemplateTransformer should not apply transformation if component has an external template 1`] = `
+exports[`inlineTemplateTransformer should not apply transformation if component has an external template 1`] = `
 "import { Component } from '@angular/core';
 @Component({
     selector: 'test',
@@ -24,9 +24,9 @@ export class TestComponent {
 "
 `;
 
-exports[`InlineTemplateTransformer should not apply transformation to empty file 1`] = `""`;
+exports[`inlineTemplateTransformer should not apply transformation to empty file 1`] = `""`;
 
-exports[`InlineTemplateTransformer should transform inline template of multiple classes in a single file 1`] = `
+exports[`inlineTemplateTransformer should transform inline template of multiple classes in a single file 1`] = `
 "import { Component } from '@angular/core';
 import { ObservableEvent } from 'ngx-template-streams';
 import { Observable } from 'rxjs';

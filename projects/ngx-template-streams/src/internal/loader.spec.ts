@@ -1,4 +1,4 @@
-import { rawSource } from '../testing/test-helpers';
+import { createFileContent } from '../testing/test-helpers';
 import * as engine from './event-binding-engine';
 import templateStreamLoader from './loader';
 
@@ -24,7 +24,7 @@ describe('Loader', () => {
   });
 
   it('should not call engine for incorrect source', () => {
-    const source = rawSource`
+    const source = createFileContent`
       module.exports = foo"
     `;
 
@@ -36,7 +36,7 @@ describe('Loader', () => {
 
   it('should call event binding engine for correct source', () => {
     const template = 'foo';
-    const source = rawSource`
+    const source = createFileContent`
       module.exports = "${template}"
     `;
 
@@ -48,7 +48,7 @@ describe('Loader', () => {
 
   it('should perserve arbitrary module export', () => {
     const template = 'foo';
-    const source = rawSource`
+    const source = createFileContent`
       export default "${template}"
     `;
 

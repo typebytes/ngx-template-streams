@@ -1,7 +1,8 @@
 import { AngularCompilerPlugin, AngularCompilerPluginOptions } from '@ngtools/webpack';
 import { WebpackCompilerHost } from '@ngtools/webpack/src/compiler_host';
+import * as ts from 'typescript';
 import * as webpack from 'webpack';
-import { inlineTemplateTransformer } from './transformers';
+import { jitTransformers } from './transformers';
 import { getSourceFile } from './webpack-compiler-host';
 
 // This key is used to access a private property on the AngularCompilerPlugin
@@ -49,7 +50,7 @@ export default {
 
     if (jitMode) {
       // Warning: this method is *not* pure and modifies the array of transformers directly
-      addTransformer(newCompilerPlugin, inlineTemplateTransformer);
+      addTransformers(newCompilerPlugin, jitTransformers);
     }
 
     config.plugins.push(newCompilerPlugin);
@@ -66,9 +67,9 @@ function isAngularCompilerPlugin(plugin: webpack.Plugin) {
   return plugin instanceof AngularCompilerPlugin;
 }
 
-function addTransformer(acp: any, transformer: any): void {
+function addTransformers(acp: any, transformers: Array<ts.TransformerFactory<ts.SourceFile>>): void {
   // The AngularCompilerPlugin has no public API to add transformers, use private API _transformers instead
-  acp._transformers = [transformer, ...acp._transformers];
+  acp._transformers = [...transformers, ...acp._transformers];
 }
 
 function removeCompilerPlugin(plugins: webpack.Plugin[], acp: webpack.Plugin) {

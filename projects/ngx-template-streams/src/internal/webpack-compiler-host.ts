@@ -2,7 +2,7 @@ import { OnErrorFn, WebpackCompilerHost } from '@ngtools/webpack/src/compiler_ho
 import { tsquery } from '@phenomnomnominal/tsquery';
 import * as ts from 'typescript';
 import { printFileContent } from '../utils/ts-helpers';
-import { addSourcePropertiesTransformer, inlineTemplateTransformer } from './transformers';
+import { aotTransformers } from './transformers';
 
 const COMPONENT_DECORATOR_QUERY = 'ClassDeclaration:has(Decorator:has(Identifier[name="Component"]))';
 
@@ -26,7 +26,6 @@ export function getSourceFile(fileName: string, languageVersion: ts.ScriptTarget
       let sf = ts.createSourceFile(fileName, content, languageVersion, true);
 
       if (isAOT && isComponentFile(sf)) {
-        const aotTransformers = [inlineTemplateTransformer, addSourcePropertiesTransformer];
         const sfTransformed = ts.transform(sf, aotTransformers).transformed[0];
         const newFileContent = printFileContent(sfTransformed);
         sf = ts.createSourceFile(fileName, newFileContent, languageVersion);

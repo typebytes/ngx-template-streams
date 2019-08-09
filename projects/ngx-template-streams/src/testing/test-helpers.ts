@@ -8,14 +8,14 @@ export const stripIndent = tags.stripIndent;
 export const fixtures = resolve(__dirname, '../fixtures');
 
 export function createTemplate(strings: TemplateStringsArray, ...values: any[]) {
-  return escapeQuotes(rawSource(strings, values));
+  return escapeQuotes(createFileContent(strings, values));
 }
 
 export function createInlineTemplate(strings: TemplateStringsArray, ...values: any[]) {
-  return rawSource(strings, values);
+  return createFileContent(strings, values);
 }
 
-export function rawSource(strings: TemplateStringsArray, ...values: any[]) {
+export function createFileContent(strings: TemplateStringsArray, ...values: any[]) {
   return tags.stripIndent(strings, values);
 }
 

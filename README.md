@@ -19,6 +19,7 @@ We like reactive programming and with this experiment we hope to push this forwa
 - ✅ Works with both `ViewEngine` and `Ivy`
 - ✅ AOT compatible
 - ✅ Easy to use syntax that is inspired by [this proposal](https://github.com/angular/angular/issues/13248)
+- ✅ Ships with two reactive alternatives to `ViewChild` and `ViewChildren` (see [API](#api))
 - ✅ Can be used for native DOM events and component outputs
 - ✅ Redefine the event payload (`$event`)
 - ✅ Works with our beloved `AsyncPipe`
@@ -64,6 +65,10 @@ The schematic will:
 - configure `serve`, `build`, and `test` architects of your app (these will use a custom builder to allow for custom webpack configurations)
 
 Once all that is done, we can take advantage of this library and define some event streams in our templates 🎉.
+
+### Alternative
+
+If you want to use a more component- and code-centric way of listening for events on HTML elements or components, check out the [`@ObservableChild`](#ObservableChild) and [`@ObservableChildren`](#ObservableChildren) decorator.
 
 ## Syntax
 
@@ -222,6 +227,84 @@ export class AppComponent {
     return new Subject();
   })
   clicks$: Observable<any>;
+}
+```
+
+### <a id="ObservableChild"></a> `@ObservableChild(selector, event, options)`
+
+The `ObservableChild` is a reactive alternative to `ViewChild`.
+
+**Parameters**
+
+| Parameter | Type                                       | Default | Optional | Description |
+| --------- | ------------------------------------------ | ------- | -------- | ----------- |
+| selector  | name or component type                     | /       |          |             |
+| event     | event name or output                       | /       |          |             |
+| options   | `QueryOptions` & `AddEventListenerOptions` | /       | x        |             |
+
+**`QueryOptions`** (same options as with `ViewChild`)
+
+```
+{
+  static?: boolean = false;
+  read?: any;
+}
+```
+
+**`AddEventListenerOptions`**
+
+```
+{
+  once?: boolean;
+  passive?: boolean;
+}
+```
+
+Example:
+
+```ts
+import { Component } from '@angular/core';
+import { ObservableChild } from '@typebytes/ngx-template-streams';
+
+@Component({
+  ...,
+  template: `
+    <button #btn>Click Me</button>
+  `
+})
+export class AppComponent {
+  @ObservableChild('btn', 'click', { static: true })
+  clicks$: Observable<any>;
+}
+```
+
+### <a id="ObservableChildren"></a> `@ObservableChildren(selector, event, options)`
+
+The `ObservableChildren` is a reactive alternative to `ViewChildren`.
+
+**Parameters**
+
+| Parameter | Type                      | Default | Optional | Description |
+| --------- | ------------------------- | ------- | -------- | ----------- |
+| selector  | name or component type    | /       |          |             |
+| event     | event name or output      | /       |          |             |
+| options   | `AddEventListenerOptions` | /       | x        |             |
+
+```ts
+import { Component } from '@angular/core';
+import { ObservableChild } from '@typebytes/ngx-template-streams';
+
+@Component({
+  ...,
+  template: `
+    <test-component></test-component>
+    <test-component></test-component>
+    <test-component></test-component>
+  `
+})
+export class AppComponent {
+  @ObservableChildren(TestComponent, 'myOutput', { passive: true })
+  aggregatedOutputs$: Observable<any>;
 }
 ```
 

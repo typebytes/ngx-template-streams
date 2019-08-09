@@ -4,7 +4,7 @@ import * as ts from 'typescript';
 import * as webpack from 'webpack';
 import { fixtures } from '../testing/test-helpers';
 import Plugin, { JIT_MODE } from './plugin';
-import { inlineTemplateTransformer } from './transformers';
+import { jitTransformers } from './transformers';
 
 describe('Plugin', () => {
   let angularCompilerPlugin: AngularCompilerPlugin;
@@ -59,12 +59,11 @@ describe('Plugin', () => {
 
     const config = Plugin.config(webpackConfig);
     const updatedPlugin = config.plugins[0] as AngularCompilerPlugin;
+    const transformers = (updatedPlugin as any)._transformers as Array<ts.TransformerFactory<ts.SourceFile>>;
 
-    const hasTemplateTransformer = (updatedPlugin as any)._transformers.find(
-      (fn: ts.Transformer<any>) => fn === inlineTemplateTransformer
-    );
+    const hasJitTransformers = jitTransformers.every(transformer => transformers.includes(transformer));
 
-    expect(hasTemplateTransformer).toBeDefined();
+    expect(hasJitTransformers).toBe(true);
   });
 
   it('should disable forkTypeChecker in AOT mode', () => {

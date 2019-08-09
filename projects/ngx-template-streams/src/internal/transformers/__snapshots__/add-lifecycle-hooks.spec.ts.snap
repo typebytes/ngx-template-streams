@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addLifecycleHooksTransformer ngAfterViewInit should add ngAfterViewInit if it does not exist 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChildren()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+    ngAfterViewInit() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngAfterViewInit should not add ngAfterViewInit if it exists 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChildren()
+    stream$: Observable<any>;
+    ngAfterViewInit() {
+        console.log('test');
+    }
+    ngOnDestroy() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngAfterViewInit should not add ngAfterViewInit › ObservableChild 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChild()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngAfterViewInit should not add ngAfterViewInit › ObservableEvent 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableEvent()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should add ngOnDestroy if it does not exist › ObservableChild 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChild()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should add ngOnDestroy if it does not exist › ObservableChildren 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChildren()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+    ngAfterViewInit() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should add ngOnDestroy if it does not exist › ObservableEvent 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableEvent()
+    stream$: Observable<any>;
+    ngOnDestroy() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should not add ngOnDestroy for unknown decorators 1`] = `
+"@Component()
+class TestComponent {
+    @Input()
+    myInput: number;
+    @Output()
+    myOutput = new EventEmitter();
+    @ViewChild('test', { static: true })
+    testElement;
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should not add ngOnDestroy if it exists › ObservableChild 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChild()
+    stream$: Observable<any>;
+    ngOnDestroy() {
+        console.log('test');
+    }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should not add ngOnDestroy if it exists › ObservableChildren 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableChildren()
+    stream$: Observable<any>;
+    ngOnDestroy() {
+        console.log('test');
+    }
+    ngAfterViewInit() { }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer ngOnDestroy should not add ngOnDestroy if it exists › ObservableEvent 1`] = `
+"@Component()
+class TestComponent {
+    @ObservableEvent()
+    stream$: Observable<any>;
+    ngOnDestroy() {
+        console.log('test');
+    }
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer should not apply transformation if class doesn not contain known decorators 1`] = `
+"@Component()
+class TestComponent {
+}
+"
+`;
+
+exports[`addLifecycleHooksTransformer should not apply transformation if the file is empty 1`] = `""`;

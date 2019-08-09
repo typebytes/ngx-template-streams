@@ -1,6 +1,6 @@
 import { some } from 'fp-ts/lib/Option';
 import * as ts from 'typescript';
-import { findNodes } from '../../utils/transformer-helpers';
+import { findNodes } from '../../utils/ast-helpers';
 import { updateEventBindings } from '../event-binding-engine';
 import { INLINE_TEMPLATE_QUERY } from './queries';
 

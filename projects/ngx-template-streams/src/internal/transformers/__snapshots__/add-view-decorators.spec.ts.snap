@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addViewDecoratorsTransformer ObservableChild should add default query options if not specified otherwise 1`] = `
+"import { ViewChild, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer ObservableChild should not overwrite user options 1`] = `
+"import { ViewChild, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click', { static: true, read: ElementRef })
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: true, read: ElementRef })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer ObservableChild should only apply valid query options 1`] = `
+"import { ViewChild, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click', { static: true, read: ElementRef, once: false, passive: true })
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: true, read: ElementRef })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer ObservableChild should work with component as selector 1`] = `
+"import { ViewChild, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild(FooComponent, 'someOutput')
+    foo$: Observable<any>;
+    @ViewChild(FooComponent, { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer ObservableChildren should add as many properties as observable children exist 1`] = `
+"import { ViewChildren, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ObservableChildren('bar', 'click')
+    bar$: Observable<any>;
+    @ObservableChildren(FooBarComponent, 'myOutput')
+    foobar$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+    @ViewChildren('bar')
+    __bar$;
+    @ViewChildren(FooBarComponent)
+    __foobar$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer ObservableChildren should add property decorated with ViewChildren 1`] = `
+"import { ViewChildren, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports multiple classes should add imports needed for each class 1`] = `
+"import { ViewChild, ViewChildren, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+@Component()
+class TestComponent {
+    @ObservableChildren('bar', 'click')
+    bar$: Observable<any>;
+    @ViewChildren('bar')
+    __bar$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports multiple classes should add imports only once 1`] = `
+"import { ViewChild, ViewChildren, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ObservableChildren('bar', 'click')
+    bar$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+    @ViewChildren('bar')
+    __bar$;
+}
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ObservableChildren('bar', 'click')
+    bar$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+    @ViewChildren('bar')
+    __bar$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports should add ViewChild and ViewChildren import specifier 1`] = `
+"import { ViewChild, ViewChildren } from \\"@angular/core\\";
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ObservableChildren('foo', 'click')
+    bar$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+    @ViewChildren('foo')
+    __bar$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports should not add import declaration when decorator is not used 1`] = `
+"import { Component } from '@angular/core';
+@Component()
+class TestComponent {
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports should not add import declaration when no component is defined 1`] = `
+"class TestComponent {
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should add import specifier to an empty import statement › ObservableChild 1`] = `
+"import { ViewChild } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should add import specifier to an empty import statement › ObservableChildren 1`] = `
+"import { ViewChildren } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should add import specifier to existing import declaration › ObservableChild 1`] = `
+"import { ViewChild, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should add import specifier to existing import declaration › ObservableChildren 1`] = `
+"import { ViewChildren, Component } from '@angular/core';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should not change the order › ObservableChild 1`] = `
+"import { foo } from 'some/path';
+import { ViewChild, Component } from '@angular/core';
+import { of } from 'rxjs';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when core import exists should not change the order › ObservableChildren 1`] = `
+"import { foo } from 'some/path';
+import { ViewChildren, Component } from '@angular/core';
+import { of } from 'rxjs';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when import declaration is missing should add a new import declaration at the top › ObservableChild 1`] = `
+"import { ViewChild } from \\"@angular/core\\";
+import { bar } from 'some/path';
+@Component()
+class TestComponent {
+    @ObservableChild('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChild('foo', { static: false })
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer imports when import declaration is missing should add a new import declaration at the top › ObservableChildren 1`] = `
+"import { ViewChildren } from \\"@angular/core\\";
+import { bar } from 'some/path';
+@Component()
+class TestComponent {
+    @ObservableChildren('foo', 'click')
+    foo$: Observable<any>;
+    @ViewChildren('foo')
+    __foo$;
+}
+"
+`;
+
+exports[`addViewDecoratorsTransformer should not apply transformation if the file is empty 1`] = `""`;
