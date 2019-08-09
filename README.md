@@ -275,6 +275,15 @@ import { ObservableChild } from '@typebytes/ngx-template-streams';
 export class AppComponent {
   @ObservableChild('btn', 'click', { static: true })
   clicks$: Observable<any>;
+
+  /**
+   * We can only start to subscribe in 'ngOnInit' if the query is 'static'.
+   * Otherwise we have to use 'ngAfterViewInit' or from the template
+   * using the AsyncPipe.
+   */
+  ngOnInit() {
+    this.clicks$.subscribe(console.log);
+  }
 }
 ```
 
@@ -307,6 +316,14 @@ import { ObservableChild } from '@typebytes/ngx-template-streams';
 export class AppComponent {
   @ObservableChildren(TestComponent, 'myOutput', { passive: true })
   aggregatedOutputs$: Observable<any>;
+
+  /**
+   * We can only start to subscribe in 'ngAfterViewInit' or from the
+   * template using the AsyncPipe.
+   */
+  ngAfterViewInit() {
+    this.aggregatedOutputs$.subscribe(console.log);
+  }
 }
 ```
 
