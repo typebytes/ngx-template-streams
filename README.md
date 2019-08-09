@@ -290,6 +290,8 @@ The `ObservableChildren` is a reactive alternative to `ViewChildren`.
 | event     | event name or output      | /       |          |             |
 | options   | `AddEventListenerOptions` | /       | x        |             |
 
+Example:
+
 ```ts
 import { Component } from '@angular/core';
 import { ObservableChild } from '@typebytes/ngx-template-streams';
