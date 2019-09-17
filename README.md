@@ -399,6 +399,26 @@ to follow the [manual installation guide](#manual-installation) instead of using
 
 No, that's not necessary. The library will automatically complete and clean up every event stream for you when the component is destroyed.
 
+### What if I use typescript's strict mode?
+
+If you are working with TypeScript's strict mode or have set strictPropertyInitialization to true in your tsconfig.json, you will experience an error using @ObservableEvent().
+
+```ts
+@ObservableEvent()
+click$: Observable<MouseEvent>;
+//   ^ Property 'click$' has no initializer
+//     and is not definitely assigned in the constructor.
+```
+
+`ngx-template-streams` ensures that your observable streams are initialized.
+That's why you can easily get around this using the _non-null-assertion_ operator of TypeScript. 👍
+
+```diff
+@ObservableEvent()
+- click$: Observable<MouseEvent>;
++ click$!: Observable<MouseEvent>;
+```
+
 ## Versioning
 
 `ngx-template-streams` will be maintained under the Semantic Versioning guidelines. Releases are numbered with the following format:
