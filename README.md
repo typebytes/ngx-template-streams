@@ -401,7 +401,7 @@ No, that's not necessary. The library will automatically complete and clean up e
 
 ### What if I use TypeScript's strict mode?
 
-If you are working with TypeScript's strict mode or have set strictPropertyInitialization to true in your tsconfig.json, you will experience an error using @ObservableEvent().
+If you are working with TypeScript's strict mode or have set `strictPropertyInitialization` to true in your `tsconfig.json`, you will experience an error using `@ObservableEvent()`.
 
 ```ts
 @ObservableEvent()
