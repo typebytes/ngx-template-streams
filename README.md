@@ -26,7 +26,7 @@ We like reactive programming and with this experiment we hope to push this forwa
 
 **Notes**
 
-[<a id="ivy-compatibility-note"></a>1] If you want to use `ngx-template-streams` with **Ivy** you have to use the **latest** version of `ngx-template-streams`.
+[<a id="ivy-compatibility-note"></a>1] If you want to use `ngx-template-streams` with **Ivy** you have to use the **latest** version of `ngx-template-streams` and upgrade your Angular version to `>= 9.0.0-rc.0`.
 
 ## 🙏 Credits
 
