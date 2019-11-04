@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, ɵNG_COMPONENT_DEF as NG_COMPONENT_DEF } from '@angular/core';
+import { ElementRef, EventEmitter, ɵNG_COMP_DEF as NG_COMPONENT_DEF } from '@angular/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { INTERNAL_PREFIX } from '../internal/constants';

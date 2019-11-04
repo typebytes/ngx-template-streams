@@ -16,13 +16,17 @@ We like reactive programming and with this experiment we hope to push this forwa
 
 ## Features
 
-- ✅ Works with both `ViewEngine` and `Ivy`
+- ✅ Works with both `ViewEngine` and `Ivy` [\*](#ivy-compatibility-note)
 - ✅ AOT compatible
 - ✅ Easy to use syntax that is inspired by [this proposal](https://github.com/angular/angular/issues/13248)
 - ✅ Ships with two reactive alternatives to `ViewChild` and `ViewChildren` (see [API](#api))
 - ✅ Can be used for native DOM events and component outputs
 - ✅ Redefine the event payload (`$event`)
 - ✅ Works with our beloved `AsyncPipe`
+
+**Notes**
+
+[<a id="ivy-compatibility-note"></a>1] If you want to use `ngx-template-streams` with **Ivy** you have to use the **latest** version of `ngx-template-streams`.
 
 ## 🙏 Credits
 
