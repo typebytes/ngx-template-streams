@@ -65,7 +65,7 @@
     "jest-preset-angular": "^7.1.1",
     "memfs": "^2.15.4",
     "memory-fs": "^0.4.1",
-    "ng-packagr": "^5.1.0",
+    "ng-packagr": "^10.1.1",
     "prettier": "^1.18.2",
     "protractor": "~5.4.0",
     "rimraf": "^2.6.3",
